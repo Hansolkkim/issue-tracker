@@ -1,4 +1,4 @@
-![header](../../Hansolkkim.github.io/assets/img/api-20220706160447609)
+![header](https://capsule-render.vercel.app/api?type=rect&color=auto&height=120&section=header&text=Issue%20Tracker&fontSize=100)
 
 ## Issue Tracker
 
