@@ -1,0 +1,60 @@
+# active profile
+spring:
+  profiles:
+    active: dev-mysql
+---
+# profile group
+spring:
+  profiles:
+    group:
+      dev-mysql: "dev-mysql, local-log, jwt, oauth, aws"
+      deploy-mysql: "deploy-mysql, deploy-log, jwt, oauth, aws"
+---
+# dev-mysql
+spring:
+  config:
+    activate:
+      on-profile: dev-mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/issue_tracker
+    username:
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        connection:
+          charSet: UTF-8
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        open-in-view: false
+  redis:
+    host: localhost
+    port: 6379
+---
+# deploy-mysql
+spring:
+  config:
+    activate:
+      on-profile: deploy-mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PW}
+  redis:
+    host: localhost
+    port: 6379
+logging:
+  file:
+    path: ${LOG_FILE_PATH}
+---
+# log-group
+spring:
+  profiles:
+    group:
+      local-log: "console-log, low-level-log"
+      deploy-log: "file-log, high-level-log"
